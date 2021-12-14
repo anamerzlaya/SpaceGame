@@ -45,19 +45,19 @@ public class CameraController : MonoBehaviour
         }
         for (int i = 0; i < Background4.Length; i++)
         {
-            Background4[i].position += new Vector3(amountToMoveX, amountToMoveY*0.5f, 0f) * .99f;
+            Background4[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .995f;
         }
        for (int i = 0; i < Background3.Length; i++)
         {
-            Background3[i].position += new Vector3(amountToMoveX, amountToMoveY*0.5f, 0f) * .98f;
+            Background3[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .99f;
         }
        for (int i = 0; i < Background2.Length; i++)
         {
-            Background2[i].position += new Vector3(amountToMoveX, amountToMoveY*0.5f, 0f) * .97f;
+            Background2[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .98f;
         }
        for (int i = 0; i < Background1.Length; i++)
         {
-            Background1[i].position += new Vector3(amountToMoveX, amountToMoveY*0.5f, 0f) * .96f;
+            Background1[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .97f;
         }
 
         lastPos = transform.position;
