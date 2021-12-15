@@ -10,12 +10,12 @@ public class PlayerAttackController : MonoBehaviour
     public float attackRange;
     public LayerMask whatIsEnemy;
     public int damage;
-    //public Animator camAnim;
-    //public Animator playerAnim;
+    public Animator camAnim;
+    public Animator theAnimator;
 
     void Start()
     {
-        
+        theAnimator = GetComponent<Animator>();
     }
 
     void Update()
@@ -24,10 +24,11 @@ public class PlayerAttackController : MonoBehaviour
         {
             //you can attack
             timeBtwAttack = startTimeBtwAttack;
-            if (Input.GetKey(KeyCode.Space))
+            if (Input.GetKey("enter"))
             {
-                //camAnim.SetTrigger("shake");
-                //playerAnim.SetTrigger("attack");
+                Debug.Log("enter pressed");
+                camAnim.SetTrigger("shake");
+                theAnimator.SetTrigger("attack");
                 Collider2D[] enemyToDamage = Physics2D.OverlapCircleAll(attackPos.position,attackRange,whatIsEnemy);
                 for(int i = 0; i < enemyToDamage.Length; i++)
                 {

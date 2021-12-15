@@ -24,7 +24,7 @@ public class PlayerHealthController : MonoBehaviour
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
-        theSR = GetComponent<SpriteRenderer>();
+        //theSR = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -35,7 +35,7 @@ public class PlayerHealthController : MonoBehaviour
             invincibleCounter-=Time.deltaTime;
             if (invincibleCounter <= 0)
             {
-                theSR.color = new Color(theSR.color.r, theSR.color.g, theSR.color.b, 255f);
+                theSR.color = new Color(theSR.color.r, theSR.color.g, 1.0f, theSR.color.a);
             }
         }
     }
@@ -54,7 +54,9 @@ public class PlayerHealthController : MonoBehaviour
             else
             {
                 invincibleCounter = invincibleLength;
-                theSR.color = new Color(theSR.color.r, theSR.color.g, theSR.color.b, 125f);
+                theSR.color = new Color(theSR.color.r, theSR.color.g, 0.6f, theSR.color.a);
+
+                PlayerController.instance.KnockBack();
             }
         }
         
