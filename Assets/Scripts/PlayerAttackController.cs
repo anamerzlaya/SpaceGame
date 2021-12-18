@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerAttackController : MonoBehaviour
 {
-    private float timeBtwAttack;
+    public float timeBtwAttack;
     public float startTimeBtwAttack;
+
     public Transform attackPos;
     public float attackRange;
     public LayerMask whatIsEnemy;
@@ -13,9 +14,16 @@ public class PlayerAttackController : MonoBehaviour
     public Animator camAnim;
     public Animator theAnimator;
 
+    public static PlayerAttackController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         theAnimator = GetComponent<Animator>();
+        timeBtwAttack = 0;
     }
 
     void Update()
@@ -23,18 +31,21 @@ public class PlayerAttackController : MonoBehaviour
         if (timeBtwAttack <=0)
         {
             //you can attack
-            timeBtwAttack = startTimeBtwAttack;
-            if (Input.GetKey("enter"))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 Debug.Log("enter pressed");
                 camAnim.SetTrigger("shake");
                 theAnimator.SetTrigger("attack");
-                Collider2D[] enemyToDamage = Physics2D.OverlapCircleAll(attackPos.position,attackRange,whatIsEnemy);
-                for(int i = 0; i < enemyToDamage.Length; i++)
+                 Collider2D[] enemyToDamage = Physics2D.OverlapCircleAll(attackPos.position,attackRange,whatIsEnemy);
+                 for(int i = 0; i < enemyToDamage.Length; i++)
                 {
                     enemyToDamage[i].GetComponent<EnemyDamage>().TakeDamage(damage);
-                }
+                 }
+                
+                timeBtwAttack = startTimeBtwAttack;
+
             }
+
         }
         else
         {

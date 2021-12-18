@@ -34,11 +34,7 @@ public class CameraController : MonoBehaviour
         float amountToMoveX = transform.position.x - lastPos.x;
         float amountToMoveY = transform.position.y - lastPos.y;
 
-        //Background4.position += new Vector3(amountToMoveX, amountToMoveY, 0f) * .95f;
-        //Background3.position += new Vector3(amountToMoveX, amountToMoveY, 0f) * .8f;
-        //Background2.position += new Vector3(amountToMoveX, amountToMoveY, 0f) * .85f;
-        //Background1.position += new Vector3(amountToMoveX, amountToMoveY, 0f) * .75f;
-
+        
         for (int i = 0; i < BackgroundNotMoving.Length; i++)
         {
             BackgroundNotMoving[i].position += new Vector3(amountToMoveX, amountToMoveY, 0f);
@@ -49,15 +45,15 @@ public class CameraController : MonoBehaviour
         }
        for (int i = 0; i < Background3.Length; i++)
         {
-            Background3[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .99f;
+            Background3[i].position += new Vector3(amountToMoveX, amountToMoveY*0.8f, 0f) * .99f;
         }
        for (int i = 0; i < Background2.Length; i++)
         {
-            Background2[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .98f;
+            Background2[i].position += new Vector3(amountToMoveX, amountToMoveY*0.7f, 0f) * .98f;
         }
        for (int i = 0; i < Background1.Length; i++)
         {
-            Background1[i].position += new Vector3(amountToMoveX, amountToMoveY*0.9f, 0f) * .97f;
+            Background1[i].position += new Vector3(amountToMoveX, amountToMoveY*0.6f, 0f) * .97f;
         }
 
         lastPos = transform.position;

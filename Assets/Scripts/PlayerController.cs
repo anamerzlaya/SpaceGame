@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
 
-    public float moveSpeed;
+    private float moveSpeed;
+    public float moveSpeedInit;
     public float jumpForce;
     public float jumpTime;
     private float jumpTimeCounter;
@@ -47,12 +48,24 @@ public class PlayerController : MonoBehaviour
 
         isGrounded_tmp = isGrounded;
 
+        moveSpeed = moveSpeedInit;    
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (knockBackCounter <= 0)
+        if (PlayerAttackController.instance.timeBtwAttack <=0 && (Input.GetKeyDown(KeyCode.Return))) //don't move during atack
+        {
+            moveSpeed = 0;
+        }
+        else
+        {
+            moveSpeed = moveSpeedInit;
+        }
+
+
+            if (knockBackCounter <= 0)
         {
 
             theRB.velocity = new Vector2(moveSpeed * Input.GetAxis("Horizontal"), theRB.velocity.y);
@@ -99,12 +112,12 @@ public class PlayerController : MonoBehaviour
                */
                 if (theRB.velocity.x < 0)
                 {
-                    Vector3 rotationVector = new Vector3(0, 180, 0);
+                    Vector3 rotationVector = new Vector3(0f, 180f, 0f);
                     transform.rotation = Quaternion.Euler(rotationVector);
                 }
                 else if (theRB.velocity.x > 0)
                 {
-                    Vector3 rotationVector = new Vector3(0, 0, 0);
+                    Vector3 rotationVector = new Vector3(0f, 0f, 0f);
                     transform.rotation = Quaternion.Euler(rotationVector);
 
                 }

@@ -8,7 +8,7 @@ public class PlayerHealthController : MonoBehaviour
 
     public int currentHealth, maxHealth;
 
-    public HealthBar healthBar;
+    //public HealthBar healthBar;
 
     public float invincibleLength;
     private float invincibleCounter;
@@ -23,7 +23,7 @@ public class PlayerHealthController : MonoBehaviour
     void Start()
     {
         currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        HealthBar.instance.SetMaxHealth(maxHealth);
         //theSR = GetComponent<SpriteRenderer>();
     }
 
@@ -44,12 +44,13 @@ public class PlayerHealthController : MonoBehaviour
     {
         if (invincibleCounter <= 0){
             currentHealth -= damage;
-            healthBar.SetHealth(currentHealth);
+            HealthBar.instance.SetHealth(currentHealth);
 
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
-                gameObject.SetActive(false);
+                //gameObject.SetActive(false);
+                LevelManager.instance.RespawnPlayer();
             }
             else
             {
@@ -60,5 +61,13 @@ public class PlayerHealthController : MonoBehaviour
             }
         }
         
+    }
+
+    public void HealPlayer(int heal)
+    {
+        if (currentHealth < maxHealth)
+        {
+            currentHealth += heal;
+        }
     }
 }
