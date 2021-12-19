@@ -13,6 +13,7 @@ public class EnemyDamage : MonoBehaviour
 
     public static EnemyDamage instance;
 
+
     private void Awake()
     {
         instance = this;

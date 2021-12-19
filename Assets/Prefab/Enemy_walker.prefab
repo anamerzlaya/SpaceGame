@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea00b7742a9247438d80724af0104d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  health: 20
   animator: {fileID: 6459504935553302502}
   bloodEffect: {fileID: 2056734458149428750, guid: d91e94f21dffc8148b1ed25d9cbef1c5,
     type: 3}
