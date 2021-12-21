@@ -22,6 +22,8 @@ public class EnemyBossController : MonoBehaviour
 
     private bool isStageTwo;
 
+
+
     public enum bossStates {initStageOne, initStageTwo, idle, fastidle, aim, shoot};
     public bossStates currentState;
 
@@ -70,6 +72,8 @@ public class EnemyBossController : MonoBehaviour
 
         isStageTwo = false;
         currentState = bossStates.initStageOne;  //currentState=0; 
+
+
     }
 
     // Update is called once per frame
@@ -111,7 +115,7 @@ public class EnemyBossController : MonoBehaviour
             case bossStates.initStageTwo:
                 //Debug.Log("Boss: init stage two");
                 theAnimator.SetTrigger("stageTwo");
-                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
+                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_angry_idle"))
                 {
                     currentState = bossStates.idle;
                 }
@@ -129,12 +133,26 @@ public class EnemyBossController : MonoBehaviour
                     currentState = bossStates.aim;
 
                 }
+               if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_angry_fastidle"))
+                {
+                    currentState = bossStates.fastidle;
+                }
+                else if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_angry_aim"))
+                {
+                    attackTarget = PlayerController.instance.transform.position;
+                    currentState = bossStates.aim;
+
+                }
                 break;
 
 
             case bossStates.fastidle:
                 FastIdleState();
                 if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
+                {
+                    currentState = bossStates.idle;
+                }
+                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_angry_idle"))
                 {
                     currentState = bossStates.idle;
                 }
@@ -156,17 +174,10 @@ public class EnemyBossController : MonoBehaviour
 
             case bossStates.shoot:
 
-                shotCounter-=Time.deltaTime;
-                if (shotCounter <= 0)
-                {
-                    shotCounter = timeBtwShots;
+                var newBullet =  Instantiate(bulletPack, firePoint.position, firePoint.rotation);
+                newBullet.transform.localScale = theBoss.localScale;
 
-                   
-                    var newBullet =  Instantiate(bulletPack, firePoint.position, firePoint.rotation);
-                    newBullet.transform.localScale = theBoss.localScale;
-                    //Instantiate(bulletPack, transform.position, transform.rotation);
-
-                }
+                theAnimator.SetTrigger("idle");
 
                 break;
 

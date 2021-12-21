@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerAttackController.instance.timeBtwAttack <=0 && (Input.GetKeyDown(KeyCode.Return))) //don't move during atack
+       /* if (PlayerAttackController.instance.timeBtwAttack <=0 && (Input.GetKeyDown(KeyCode.Return))) //don't move during atack
         {
             moveSpeed = 0;
         }
@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
         {
             moveSpeed = moveSpeedInit;
         }
-
+       */
 
             if (knockBackCounter <= 0)
         {

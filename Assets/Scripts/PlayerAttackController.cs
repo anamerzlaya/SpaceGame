@@ -33,16 +33,25 @@ public class PlayerAttackController : MonoBehaviour
             //you can attack
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                Debug.Log("enter pressed");
-                camAnim.SetTrigger("shake");
-                theAnimator.SetTrigger("attack");
+                //Debug.Log("enter pressed");
+                theAnimator.SetBool("attack", true);
+
+
                  Collider2D[] enemyToDamage = Physics2D.OverlapCircleAll(attackPos.position,attackRange,whatIsEnemy);
                  for(int i = 0; i < enemyToDamage.Length; i++)
-                {
-                    enemyToDamage[i].GetComponent<EnemyDamage>().TakeDamage(damage);
+                 {
+                    if ((enemyToDamage[i] is UnityEngine.Object) && (enemyToDamage[i] != null) && enemyToDamage[i].GetComponent<EnemyDamage>())  
+                        enemyToDamage[i].GetComponent<EnemyDamage>().TakeDamage(damage);
+                    if ((enemyToDamage[i] is UnityEngine.Object) && (enemyToDamage[i] != null) && enemyToDamage[i].GetComponent<EnemyDamageBoss>())  
+                        enemyToDamage[i].GetComponent<EnemyDamageBoss>().TakeDamage(damage);
                  }
                 
                 timeBtwAttack = startTimeBtwAttack;
+
+            }
+            else
+            {
+                theAnimator.SetBool("attack", false);
 
             }
 
@@ -50,6 +59,8 @@ public class PlayerAttackController : MonoBehaviour
         else
         {
             timeBtwAttack-= Time.deltaTime;
+            theAnimator.SetBool("attack", false);
+
         }
     }
 
@@ -57,5 +68,11 @@ public class PlayerAttackController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+
+    public void ShakeCamera()
+    {
+        camAnim.SetTrigger("shake");
+
     }
 }

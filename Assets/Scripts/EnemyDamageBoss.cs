@@ -28,6 +28,8 @@ public class EnemyDamageBoss : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         health = healthMax;
+        HealthBarBoss.instance.SetMaxHealth(healthMax);
+
 
     }
 
@@ -46,6 +48,8 @@ public class EnemyDamageBoss : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        HealthBarBoss.instance.SetHealth(health);
+
         Debug.Log("enemy damage taken!");
         if (health > 0)
         {
