@@ -7,6 +7,7 @@ public class EnemyBossController : MonoBehaviour
 
     private Animator theAnimator;
     private Rigidbody2D theRB;
+    public Transform theBoss;
 
     public Transform groundCheckUp;
     public Transform groundCheckDown;
@@ -36,10 +37,10 @@ public class EnemyBossController : MonoBehaviour
     private Vector3 attackTarget;
 
     [Header("ShootPlayer")]
-    public GameObject bullet;
-    public Transform firePoint;
+    public GameObject bulletPack;
     public float timeBtwShots;
-    public float shotCounter;
+    private float shotCounter;
+    public Transform firePoint;
 
 
     //private Vector3 attackTarget;
@@ -63,7 +64,6 @@ public class EnemyBossController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         isGroundedUp = Physics2D.OverlapCircle(groundCheckUp.position, .5f, whatIsGround);
         isGroundedDown = Physics2D.OverlapCircle(groundCheckDown.position, .5f, whatIsGround);
         isGroundedRight = Physics2D.OverlapCircle(groundCheckRight.position, .5f, whatIsGround);
@@ -88,6 +88,18 @@ public class EnemyBossController : MonoBehaviour
 
 
             case bossStates.shoot:
+
+                shotCounter-=Time.deltaTime;
+                if (shotCounter <= 0)
+                {
+                    shotCounter = timeBtwShots;
+
+                   
+                    var newBullet =  Instantiate(bulletPack, firePoint.position, firePoint.rotation);
+                    newBullet.transform.localScale = theBoss.localScale;
+                    //Instantiate(bulletPack, transform.position, transform.rotation);
+
+                }
 
                 break;
 
