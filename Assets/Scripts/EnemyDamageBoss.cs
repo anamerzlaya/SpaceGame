@@ -9,6 +9,7 @@ public class EnemyDamageBoss : MonoBehaviour
     public Slider healthBar;
 
     public int health;
+    public int healthMax;
     public Animator animator;
     public GameObject bloodEffect;
     public GameObject deathEffect;
@@ -26,6 +27,7 @@ public class EnemyDamageBoss : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
+        health = healthMax;
 
     }
 

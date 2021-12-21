@@ -20,7 +20,9 @@ public class EnemyBossController : MonoBehaviour
     private bool isMovingUp;
     private bool isMovingRight;
 
-    public enum bossStates {idle, fastidle, aim, shoot};
+    private bool isStageTwo;
+
+    public enum bossStates {initStageOne, initStageTwo, idle, fastidle, aim, shoot};
     public bossStates currentState;
 
     //idle
@@ -46,6 +48,13 @@ public class EnemyBossController : MonoBehaviour
     //private Vector3 attackTarget;
     //private Vector3 MoveBackPosition;
 
+    public static EnemyBossController instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,7 +67,8 @@ public class EnemyBossController : MonoBehaviour
         isMovingUp = true;
         isMovingRight = true;
 
-        currentState = bossStates.idle;  //currentState=0; 
+        isStageTwo = false;
+        currentState = bossStates.initStageOne;  //currentState=0; 
     }
 
     // Update is called once per frame
@@ -68,17 +78,52 @@ public class EnemyBossController : MonoBehaviour
         isGroundedDown = Physics2D.OverlapCircle(groundCheckDown.position, .5f, whatIsGround);
         isGroundedRight = Physics2D.OverlapCircle(groundCheckRight.position, .5f, whatIsGround);
 
+        if ((EnemyDamageBoss.instance.health < EnemyDamageBoss.instance.healthMax / 2) && !isStageTwo)
+        {
+            //stage two starts
+            isStageTwo = true;
+            idleMoveSpeed = idleMoveSpeed * 1.5f;
+            fastIdleSpeed = fastIdleSpeed * 1.5f;
+            chaseSpeed = chaseSpeed * 1.5f;
+            currentState = bossStates.initStageTwo;
+        }
+
         //FastIdleState();
         switch (currentState)
         {
+            case bossStates.initStageOne:
+                Debug.Log("Boss: init stage one");
+                theAnimator.SetTrigger("stageOne");
+                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
+                {
+                    currentState = bossStates.idle;
+                }
+                break;
+
+            case bossStates.initStageTwo:
+                Debug.Log("Boss: init stage two");
+                theAnimator.SetTrigger("stageTwo");
+                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
+                {
+                    currentState = bossStates.idle;
+                }
+                break;
+
             case bossStates.idle:
-
-
+                IdleState();
+                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_fastidle"))
+                {
+                    currentState = bossStates.fastidle;
+                }
                 break;
 
 
             case bossStates.fastidle:
-
+                FastIdleState();
+                if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
+                {
+                    currentState = bossStates.idle;
+                }
                 break;
 
 
