@@ -37,6 +37,7 @@ public class EnemyBossController : MonoBehaviour
     [Header("AimPlayer")]
     public float chaseSpeed;
     private Vector3 attackTarget;
+    private float attackCounter;
 
     [Header("ShootPlayer")]
     public GameObject bulletPack;
@@ -78,6 +79,9 @@ public class EnemyBossController : MonoBehaviour
         isGroundedDown = Physics2D.OverlapCircle(groundCheckDown.position, .5f, whatIsGround);
         isGroundedRight = Physics2D.OverlapCircle(groundCheckRight.position, .5f, whatIsGround);
 
+        attackTarget = Vector3.zero;
+
+
         if ((EnemyDamageBoss.instance.health < EnemyDamageBoss.instance.healthMax / 2) && !isStageTwo)
         {
             //stage two starts
@@ -88,11 +92,15 @@ public class EnemyBossController : MonoBehaviour
             currentState = bossStates.initStageTwo;
         }
 
-        //FastIdleState();
+        if (attackTarget == Vector3.zero)
+        {
+            attackTarget = PlayerController.instance.transform.position;
+        }
+
         switch (currentState)
         {
             case bossStates.initStageOne:
-                Debug.Log("Boss: init stage one");
+                //Debug.Log("Boss: init stage one");
                 theAnimator.SetTrigger("stageOne");
                 if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
                 {
@@ -101,7 +109,7 @@ public class EnemyBossController : MonoBehaviour
                 break;
 
             case bossStates.initStageTwo:
-                Debug.Log("Boss: init stage two");
+                //Debug.Log("Boss: init stage two");
                 theAnimator.SetTrigger("stageTwo");
                 if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_idle"))
                 {
@@ -114,6 +122,12 @@ public class EnemyBossController : MonoBehaviour
                 if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_fastidle"))
                 {
                     currentState = bossStates.fastidle;
+                }
+                else if (theAnimator.GetCurrentAnimatorStateInfo(0).IsName("EnemyBoss_aim"))
+                {
+                    attackTarget = PlayerController.instance.transform.position;
+                    currentState = bossStates.aim;
+
                 }
                 break;
 
@@ -128,7 +142,15 @@ public class EnemyBossController : MonoBehaviour
 
 
             case bossStates.aim:
+                
+                transform.position = Vector3.MoveTowards(transform.position, attackTarget, chaseSpeed * Time.deltaTime);
 
+                if (Vector3.Distance(transform.position, attackTarget) <= .1f)
+                {
+                    //just attacked -> go to idle state
+                    theAnimator.SetTrigger("idle"); 
+                    currentState = bossStates.idle;
+                }
                 break;
 
 

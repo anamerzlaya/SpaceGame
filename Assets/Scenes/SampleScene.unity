@@ -6364,7 +6364,8 @@ MonoBehaviour:
   idleMoveDirection: {x: 1, y: 2}
   fastIdleSpeed: 12
   fastIdleMoveDirection: {x: 1, y: 5}
-  chaseSpeed: 10
+  chaseSpeed: 15
+  waitAfterAttack: 0
   bulletPack: {fileID: 487185643300332866, guid: 2d9154cd5715e15419814f7852893bd1,
     type: 3}
   timeBtwShots: 1.5

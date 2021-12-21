@@ -8,10 +8,16 @@ public class IdleBehaviour : StateMachineBehaviour
     public float timer;
     public float minTime;
     public float maxTime;
+
+    private int rand;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timer=Random.Range(minTime,maxTime);
+
+        rand = Random.Range(0, 2);
+       
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -19,7 +25,8 @@ public class IdleBehaviour : StateMachineBehaviour
     {
         if (timer < 0)
         {
-            animator.SetTrigger("fastIdle"); 
+            if (rand == 0) animator.SetTrigger("fastIdle");
+            else animator.SetTrigger("aim");
         }
         else
         {
