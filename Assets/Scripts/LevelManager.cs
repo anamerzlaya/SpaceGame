@@ -12,6 +12,11 @@ public class LevelManager : MonoBehaviour
 
     public int AttemptsCounter;
 
+    public float playerArenaX, playerArenaY;
+    private bool IsArena = false;
+
+    public GameObject Boss;
+    public GameObject BossHealth;
 
     private void Awake()
     {
@@ -26,7 +31,17 @@ public class LevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if ((PlayerController.instance.transform.position.x > playerArenaX) && (PlayerController.instance.transform.position.y < playerArenaY))
+        {
+            //its Boss arena
+            IsArena = true;
+        }
+        if (IsArena)
+        {
+            Boss.SetActive(true);
+            BossHealth.SetActive(true);
+
+        }
     }
     public void RespawnPlayer()
     {
@@ -44,6 +59,13 @@ public class LevelManager : MonoBehaviour
         PlayerController.instance.transform.position = CheckPointsController.instance.spawnPoint;
         PlayerHealthController.instance.currentHealth = PlayerHealthController.instance.maxHealth;
         HealthBar.instance.SetHealth(PlayerHealthController.instance.currentHealth);
+
+        //if (EnemyDamageBoss.instance.gameObject.active)
+       // {
+            EnemyDamageBoss.instance.health = EnemyDamageBoss.instance.healthMax;
+            HealthBarBoss.instance.SetHealth(EnemyDamageBoss.instance.health);
+       // }
+            
 
         AttemptsCounter++;
     }
