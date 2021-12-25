@@ -26,7 +26,7 @@ public class IdleBehaviour : StateMachineBehaviour
         if (timer < 0)
         {
             if (rand == 0) animator.SetTrigger("fastIdle");
-            else animator.SetTrigger("aim");
+            else animator.SetTrigger("shoot");
         }
         else
         {

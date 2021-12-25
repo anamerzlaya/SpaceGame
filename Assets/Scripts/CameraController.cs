@@ -50,7 +50,6 @@ public class CameraController : MonoBehaviour
             //{
                 UnityEngine.Camera.main.orthographicSize = 7; // Max size
            // }
-            Debug.Log(UnityEngine.Camera.main.orthographicSize);
         }
         else if (IsArena==false)
         {
@@ -59,7 +58,10 @@ public class CameraController : MonoBehaviour
        
 
             float clampedY = Mathf.Clamp(target.position.y, minHeight, maxHieght);
-            transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
+            if (transform.position.x > borderRight)
+                transform.position = new Vector3(borderRight, clampedY, transform.position.z);
+            else
+                transform.position = new Vector3(transform.position.x, clampedY, transform.position.z);
             //--------------paralax
         }
             float amountToMoveX = transform.position.x - lastPos.x;

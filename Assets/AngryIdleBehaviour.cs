@@ -15,7 +15,7 @@ public class AngryIdleBehaviour : StateMachineBehaviour
     {
         timer = Random.Range(minTime, maxTime);
 
-        rand = Random.Range(0, 3);
+        rand = Random.Range(0, 4);
 
     }
 
@@ -25,8 +25,8 @@ public class AngryIdleBehaviour : StateMachineBehaviour
         if (timer < 0)
         {
             if (rand == 0) animator.SetTrigger("fastIdle");
-            else if (rand == 1) animator.SetTrigger("aim");
-            else if (rand == 2) animator.SetTrigger("shoot");
+            //else if (rand == 1) animator.SetTrigger("aim");
+            else  animator.SetTrigger("shoot");
         }
         else
         {
