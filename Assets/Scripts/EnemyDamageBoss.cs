@@ -58,7 +58,7 @@ public class EnemyDamageBoss : MonoBehaviour
         else
         {
             Instantiate(deathEffect, transform.position, Quaternion.identity);
-
+            LevelManager.instance.WinTheGame();
         }
     }
 }

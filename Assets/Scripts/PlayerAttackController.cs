@@ -73,6 +73,6 @@ public class PlayerAttackController : MonoBehaviour
     public void ShakeCamera()
     {
         camAnim.SetTrigger("shake");
-
+        AudioManager.instance.PlaySFX(2);
     }
 }

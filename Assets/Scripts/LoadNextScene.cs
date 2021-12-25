@@ -20,5 +20,7 @@ public class LoadNextScene : MonoBehaviour
     public void LoadNextSceneInGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        AudioManager.instance.PlaySFX(0);
+
     }
 }

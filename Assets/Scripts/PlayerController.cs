@@ -147,5 +147,10 @@ public class PlayerController : MonoBehaviour
     {
         knockBackCounter = knockBackLength;
         theRB.velocity = new Vector2(0f, knockBackForce);
+        AudioManager.instance.PlaySFX(4);
+    }
+    public void PlayLandingSfx()
+    {
+        AudioManager.instance.PlaySFX(1);
     }
 }

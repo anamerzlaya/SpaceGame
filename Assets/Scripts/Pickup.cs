@@ -27,6 +27,7 @@ public class Pickup : MonoBehaviour
 
             isCollected = true;
             Destroy(gameObject);
+            AudioManager.instance.PlaySFX(5);
         }
     }
 }

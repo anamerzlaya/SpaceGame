@@ -25,6 +25,7 @@ public class CheckPoint : MonoBehaviour
             CheckPointsController.instance.SetSpawnPoint(transform.position);
             PlayerHealthController.instance.currentHealth = PlayerHealthController.instance.maxHealth;
             HealthBar.instance.SetHealth(PlayerHealthController.instance.currentHealth);
+            AudioManager.instance.PlaySFX(5);
 
         }
     }

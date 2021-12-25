@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -42,6 +43,12 @@ public class LevelManager : MonoBehaviour
             BossHealth.SetActive(true);
 
         }
+
+        if (Input.GetKeyDown(KeyCode.Escape) == true)
+        {
+            Debug.Log("quit!");
+            Application.Quit();
+        }
     }
     public void RespawnPlayer()
     {
@@ -68,5 +75,17 @@ public class LevelManager : MonoBehaviour
             
 
         AttemptsCounter++;
+    }
+
+    public void WinTheGame()
+    {
+        StartCoroutine(WinTheGameCo());
+    }
+    private IEnumerator WinTheGameCo()
+    {
+
+        yield return new WaitForSeconds(waitToRespawn*3f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
     }
 }
